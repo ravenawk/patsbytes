@@ -1,59 +1,21 @@
 baseURL: ""
-languageCode: en-us
 title: Pat's Bytes
+defaultContentLanguage: en
+weight: 1
 paginate: 5
-theme: "PaperMod"
-
-enableRobotsTXT: true
-buildDrafts: false
-buildFuture: false
-buildExpired: false
-
-googleAnalytics: UA-123-45
-
-minify:
-  disableXML: true
-  minifyOutput: true
-
+theme: "ananke" 
+feature_image: 'static/package_ansible.jpg'
 params:
-  homeInfoParams:
-    Title: "Hello There"
-    Content: Welcome to my blog. Just little byte's of knowledge I glean from trying things 
-  socialIcons:
-   - name: github
-     url: "https://github.com/"
-  env: production # to enable google analytics, opengraph, twitter-cards and schema.
-  description: "Just little bytes of knowledge I glean"
-  keywords: [Blog, Portfolio, PaperMod]
-  author: Pat Martin
-  DateFormat: "January 2, 2006"
-  defaultTheme: auto # dark, light
-  disableThemeToggle: false
-
-  ShowBreadCrumbs: true
-  ShowReadingTime: true
-  ShowShareButtons: true
-  ShowPostNavLinks: true
-  ShowCodeCopyButtons: true
-  disableSpecial1stPost: false
-  disableScrollToTop: false
-  comments: false
-  hidemeta: false
-  hideSummary: false
-  showtoc: false
-  tocopen: false
+  show_reading_time: true
+  description: "Just bytes of knowledge I have picked up as I go along"
 
 menu:
   main:
-    - identifier: categories
-      name: Categories
-      url: /categories/
+    - identifier: articles
+      name: Articles
+      url: /articles/
       weight: 10
-    - identifier: tags
-      name: Tags
-      url: /tags/
-      weight: 20
     - identifier: archives
       name: Archives
       url: /archives/
-      weight: 30
+      weight: 20
