@@ -8,9 +8,10 @@ cover:
   image: 'static/package_ansible.jpg'
 params:
   show_reading_time: true
-  description: "Just bytes of knowledge I have picked up as I go along"
   style: 'moonkailight'
-
+  homeInfoParams:
+    Title: "Hello and welcome to Pat's Bytes"
+    Content: 'Here I have collected "bytes" of knowledge to share or just remember later.'
 markup:
   highlight:
     lineNos: true
@@ -20,7 +21,15 @@ menu:
       name: Articles
       url: /articles/
       weight: 10
+    - identifier: categories
+      name: Categories
+      url: /categories/
+      weight: 20
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 30
     - identifier: archives
       name: Archives
       url: /archives/
-      weight: 20
+      weight: 40
