@@ -4,9 +4,8 @@ date: 2022-03-10T21:40:44-08:00
 draft: false
 ---
 
-Collections are a new way of distributing playbooks, roles, modules,
-and plugins.
-When referring to a collection use the form namespace.collection, for example:
+Ansible content collections, collections for short, are the way to include content not included in ansible-core. Roles, playbooks, modules, and plugins can all be included in a single collection, allowing you to bundle together the content of similar use.
+The form "namespace.collection.item" refers to an item in a collection. Where namespace is the overarching group that a collection is a part of, you can have different collections as part of the same namespace. 
 
 ```amazon.aws```  
 ```community.general```  
