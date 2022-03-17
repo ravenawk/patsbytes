@@ -4,12 +4,14 @@ date: 2022-03-10T21:40:44-08:00
 draft: false
 ---
 
-Ansible content collections, collections for short, are the way to include content not included in ansible-core. Roles, playbooks, modules, and plugins can all be included in a single collection, allowing you to bundle together the content of similar use.
-The form "namespace.collection.item" refers to an item in a collection. Where namespace is the overarching group that a collection is a part of, you can have different collections as part of the same namespace. 
+Ansible content collections, collections for short, are the way to include content not included in ansible-core. You can download collections from  galaxy.ansible.com or cloud.redhat.com (with a subscription) and even create your own. Roles, playbooks, modules, and plugins can all be included in a single collection, allowing you to bundle together content with similar use. The form used when referring to an item in a specific namespace in a collection is `namespace.collection.item`. Where namespace is the overarching group that a collection is a part of, you can have different collections as part of the same namespace. Let's take a look at some examples.
 
-```amazon.aws```  
-```community.general```  
-```cisco.ios```  
+| Collection Name         | Description                                       |
+|-------------------------|---------------------------------------------------|
+| ```amazon.aws```        | Collections for different aws functions           |
+| ```ansible.netcommon``` | Collection for general networking                 |
+| ```ansible.posix```     | Collection for posix compliant systems            |
+| ```community.general``` | Collection for a variety of different subjects    |
 
 Installing collections
 Installing in the CLI
