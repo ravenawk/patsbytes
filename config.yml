@@ -13,9 +13,6 @@ params:
     Title: "Hello and welcome to Pat's Bytes"
     Content: 'Here I have collected "bytes" of knowledge to share or just remember later.'
   codeCopyButton: true
-markup:
-  highlight:
-    lineNos: true
 menu:
   main:
     - identifier: articles
