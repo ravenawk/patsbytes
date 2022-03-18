@@ -1,3 +1,4 @@
+---
 baseURL: ""
 title: Pat's Bytes
 paginate: 5
@@ -50,3 +51,4 @@ markup:
       codeFences: false
       guessSyntax: true
       style: monokai
+...
