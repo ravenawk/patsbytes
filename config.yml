@@ -1,18 +1,30 @@
 baseURL: ""
 title: Pat's Bytes
+paginate: 5
+theme: PaperMod
 defaultContentLanguage: en
 weight: 1
-paginate: 5
-theme: "PaperMod" 
 cover:
   image: 'static/package_ansible.jpg'
 params:
-  show_reading_time: true
-  style: 'moonkailight'
+  title: Pat's Bytes
+  description: "Welcome to my little bytes of learning"
+  keywords: [Blog, PaperMod, Portforio]
+  author: Pat Martin
+  DateFormat: "January 1, 2001"
+  defaultTheme: auto
+  disableThemeToggle: false
+
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+
   homeInfoParams:
     Title: "Hello and welcome to Pat's Bytes"
     Content: 'Here I have collected "bytes" of knowledge to share or just remember later.'
-  codeCopyButton: true
+
 menu:
   main:
     - identifier: articles
@@ -31,3 +43,10 @@ menu:
       name: Archives
       url: /archives/
       weight: 40
+
+markup:
+    highlight:
+      # anchorLineNos: true
+      codeFences: false
+      guessSyntax: true
+      style: monokai
