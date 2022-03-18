@@ -4,7 +4,8 @@ date: 2022-03-10T21:40:44-08:00
 draft: false
 ---
 
-Ansible content collections, collections for short, are the way to include content not included in ansible-core. You can download collections from  galaxy.ansible.com or cloud.redhat.com (with a subscription) and even create your own. Roles, playbooks, modules, and plugins can be included in a single collection, allowing you to bundle content with similar use cases together. The form used when referring to an item in a collection is "namespace.collection.item". Think of a namespace as the container that groups similar collections, a collection of collections. Let's take a look at some examples.
+Ansible content collections, collections for short, are the way to include content not included in ansible-core. You can download collections from  https://galaxy.ansible.com or https://cloud.redhat.com (with a subscription) and even create your own.  
+Roles, playbooks, modules, and plugins can be included in a single collection, allowing you to bundle content with similar use cases together. The form used when referring to an item in a collection is "namespace.collection.item". Think of a namespace as the container that groups similar collections, a collection of collections. Let's take a look at some examples.
 
 | Collection Name         | Description                          |
 |-------------------------|--------------------------------------|
@@ -21,8 +22,7 @@ A collection can be installed using the ansible-galaxy command.
 ansible-galaxy collection install ansible.general
 ```
 
-The collection is installed to the first path in the COLLECTIONS_PATHS variable, by default this is ~/.
-ansible/collections.
+The collection is installed to the first path in the COLLECTIONS_PATHS variable, by default this is `~/.ansible/collections`.  
 A collection can also be installed using a requirements.yml file.
 
 ```bash

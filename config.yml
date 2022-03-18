@@ -10,7 +10,10 @@ cover:
 params:
   title: Pat's Bytes
   description: "Welcome to my little bytes of learning"
-  keywords: [Blog, PaperMod, Portforio]
+  keywords:
+    - Blog
+    - PaperMod
+    - Portfolio
   author: Pat Martin
   DateFormat: "January 1, 2001"
   defaultTheme: auto
@@ -22,9 +25,19 @@ params:
   ShowBreadCrumbs: true
   ShowCodeCopyButtons: true
 
-  homeInfoParams:
-    Title: "Hello and welcome to Pat's Bytes"
-    Content: 'Here I have collected "bytes" of knowledge to share or just remember later.'
+  profileMode:
+    enabled: true
+    title: "Pat's Bytes" # optional default will be site title
+    subtitle: "Welcome to my blog"
+    imageUrl: "images/package_ansible.jpg" # optional
+    imageTitle: "Pat's Bytes" # optional
+    imageWidth: 360 # custom size
+    imageHeight: 360 # custom size
+    buttons:
+      - name: Archive
+        url: "/archive"
+      - name: Articles
+        url: "/articles"
 
 menu:
   main:
@@ -47,7 +60,6 @@ menu:
 
 markup:
     highlight:
-      # anchorLineNos: true
       codeFences: false
       guessSyntax: true
       style: monokai
