@@ -4,7 +4,8 @@ date: 2022-03-10T21:40:44-08:00
 draft: false
 ---
 
-Ansible content collections, collections for short, are the way to include content not included in ansible-core. You can download collections from  https://galaxy.ansible.com or https://cloud.redhat.com (with a subscription) and even create your own.  
+Ansible content collections, collections for short, are the way to include content not included in ansible-core. You can download collections from  https://galaxy.ansible.com or https://console.redhat.com (with a subscription) and even create your own.  
+
 Roles, playbooks, modules, and plugins can be included in a single collection, allowing you to bundle content with similar use cases together. The form used when referring to an item in a collection is "namespace.collection.item". Think of a namespace as the container that groups similar collections, a collection of collections. Let's take a look at some examples.
 
 | Collection Name         | Description                          |
@@ -14,16 +15,27 @@ Roles, playbooks, modules, and plugins can be included in a single collection, a
 | ```ansible.posix```     | Posix compliant systems              |
 | ```community.general``` | Content on a variety of subjects     |
 
+*In most of the examples used in this post, I will be using the **community.general** collection.*
+
+
 ### Installing collections
 
 A collection can be installed using the ansible-galaxy command.
 
 ```bash
-ansible-galaxy collection install ansible.general
+$ ansible-galaxy collection install community.general
+Starting galaxy collection install process
+Process install dependency map
+Starting collection install process
+Downloading https://galaxy.ansible.com/download/community-general-4.6.1.tar.gz to /home/patsbytes/.ansible/tmp/ansible-local-465vxd99hl5/tmpdy0zd9qn/community-general-4.6.1-_rg2s6mk
+Installing 'community.general:4.6.1' to '/home/patsbytes/.ansible/collections/ansible_collections/community/general'
+community.general:4.6.1 was installed successfully
 ```
 
-The collection is installed to the first path in the COLLECTIONS_PATHS variable, by default this is `~/.ansible/collections`.  
-A collection can also be installed using a requirements.yml file.
+In the example above *community.general* is installed at `/home/patsbytes/.ansible/collections/`.  
+The collection is installed to the first path in the **COLLECTIONS_PATHS** environmental variable; by default, this is `~/.ansible/collections`. 
+By editing the **collection_path** key in the **[defaults]** section of your ansible.cfg or adding the **-p** option you can modify this path.  
+Using a requirements.yml file, you can also install a collection.
 
 ```bash
 ansible-galaxy collection install -r requirements.yml
