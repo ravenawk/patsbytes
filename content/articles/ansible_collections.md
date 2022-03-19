@@ -32,12 +32,14 @@ Installing 'community.general:4.6.1' to '/home/patsbytes/.ansible/collections/an
 community.general:4.6.1 was installed successfully
 ```
 
-Some options you can pass to the command:  
-**-p** "path" Pass a specific path where the collection will be installed  
-**-r** "file"  Pass a requirements file with the list of collections to install (see below)  
+Collection *community.general* is installed at `/home/patsbytes/.ansible/collections/`
 
-In the example above *community.general* is installed at `/home/patsbytes/.ansible/collections/`.  
-If the **-p** option isn't used, the collection is installed to the first path in the **COLLECTIONS_PATHS** environmental variable; by default, this is `~/.ansible/collections`.
+*Some options you can pass to the command*  
+
+>-p "path" : Path to install the collection (overrides `COLLECTION_PATHS` see below)   
+>-r "file" : Install collections based off a requirements file (see below) 
+
+The collection is installed to the first path in the `COLLECTIONS_PATHS` environmental variable. By default, this is `~/.ansible/collections`.
 You can also change the install location by adding/editing the **collection_path** key in the **[defaults]** section of your ansible.cfg .  
 Using a requirements.yml file, you can also install a collection.
 
