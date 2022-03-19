@@ -39,8 +39,15 @@ Collection *community.general* is installed at `/home/patsbytes/.ansible/collect
 >-p "path" : Path to install the collection (overrides `COLLECTION_PATHS` see below)   
 >-r "file" : Install collections based off a requirements file (see below) 
 
-The collection is installed to the first path in the `COLLECTIONS_PATHS` environmental variable. By default, this is `~/.ansible/collections`.
-You can also change the install location by adding/editing the **collection_path** key in the **[defaults]** section of your ansible.cfg .  
+The collection is installed to the first path listed in the `COLLECTIONS_PATHS` environmental variable. By default, this is `~/.ansible/collections`.
+This list of paths can be edited in the ansible.cfg under `[defaults]` using the `collections_paths` key and adding a colon separated list
+
+```ini
+[defaults]
+collection_paths = ./collections:~/.ansible/collections
+```
+
+
 Using a requirements.yml file, you can also install a collection.
 
 ```bash
