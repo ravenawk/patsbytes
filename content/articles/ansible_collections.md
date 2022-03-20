@@ -84,23 +84,17 @@ collections:
 
 # With the collection name, version, and source options
 - name: ansible.netcommon
-# Version range identifiers (default: ``*``)'
+  # Version range identifiers (default: ``*``)'
   version: 2.6.1
-# Source - The Galaxy URL to pull the collection from
-# (default: ``--api-server`` from cmdline)
-# Not normally needed, this would work without this line as well.
+  # Source - The Galaxy URL to pull the collection from
+  # (default: ``--api-server`` from cmdline)
+  # Not normally needed for collections on galaxy.ansible.com, 
+  # this would work without this line but inserted here for completeness.
   source: https://galaxy.ansible.com
 ```
 
 For example:
 
----
-collections:
-- name: ansible.netcommon
-version: 1.1.0
-source: https://galaxy.ansible.com
-
-As above, this will install it to the first path in the COLLECTIONS_PATHS variable.
 Installing in tower
 To use a collection in ansible tower put the requirements.yml file in the collections directory located in
 the root of the project. As seen below:
