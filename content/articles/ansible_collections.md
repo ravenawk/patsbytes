@@ -50,42 +50,47 @@ Installing 'community.general:4.6.1' to '/home/patsbytes/.ansible/collections/an
 community.general:4.6.1 was installed successfully
 ```
 
-Collection *community.general* is installed at `/home/patsbytes/.ansible/collections/`
+Above `community.general` is installed at `/home/patsbytes/.ansible/collections/`
 
-*Some options you can pass to the command*  
+*Some options you can pass to the install command*  
 
 - -p "path" : Path to install the collection (overrides `COLLECTION_PATHS` see below)   
 - -r "file" : Install collections based off a requirements file (see below) 
 
-The collection is installed to the first path listed in the `COLLECTIONS_PATHS` environmental variable. By default, this is `~/.ansible/collections`.
-This list of paths can be edited in the ansible.cfg under `[defaults]` using the `collections_paths` key and adding a colon separated list
+If you don't use the -p option the collection is installed to the first path listed in the `COLLECTIONS_PATHS` environmental variable. By default, this is `~/.ansible/collections`.
+Let's take a look at that default value.
+
+```none
+$ ansible-config dump | grep COLLECTIONS_PATHS
+COLLECTIONS_PATHS(default) = ['/home/patsbytes/.ansible/collections', '/usr/share/ansible/collections']
+```
+
+If you want to change this list it can be edited in the ansible.cfg under `[defaults]` using the `collections_paths` key and adding a colon separated list for example:
 
 ```none
 [defaults]
-collection_paths = ./collections:~/.ansible/collections
+collection_paths = ./collections:~/.ansible/collections:/usr/share/ansible/collections
 ```
 
-> Excerpt from ansible.cfg
+Using a requirements.yml file, you can also install a collection or list of collections.
 
-Using a requirements.yml file, you can also install a collection.
+The format of the requirements.yml file is:
 
-```bash
-ansible-galaxy collection install -r requirements.yml
-```
-
-The format in the requirements.yml file is:
-
-{{< highlight yaml "linenos=table,linenostart=1" >}}
+```yaml
 ---
 collections:
 # With just the collection name
 - namespace.collection
-# With the collection name, version, and
-source options
-- name: namespace.other_collection 
-  version: 'version range identifiers (default: ``*``)'
-  source: 'The Galaxy URL to pull the collection from (default: ``--api-server`` from cmdline)'
-{{< /highlight >}}
+
+# With the collection name, version, and source options
+- name: ansible.netcommon
+# Version range identifiers (default: ``*``)'
+  version: 2.6.1
+# Source - The Galaxy URL to pull the collection from
+# (default: ``--api-server`` from cmdline)
+# Not normally needed, this would work without this line as well.
+  source: https://galaxy.ansible.com
+```
 
 For example:
 
@@ -146,4 +151,5 @@ On collections in general
 https://docs.ansible.com/ansible/latest/user_guide/collections_using.html
 For developing collections
 https://docs.ansible.com/ansible/latest/dev_guide/developing_collections.html
-
+Ansible config settings
+https://docs.ansible.com/ansible/latest/reference_appendices/config.html
