@@ -1,4 +1,3 @@
----
 baseURL: ""
 title: Pat's Bytes
 paginate: 5
@@ -61,6 +60,6 @@ menu:
 markup:
     highlight:
       codeFences: false
+      pygmentsCodeFences: false
       guessSyntax: true
-      style: monokai
 ...

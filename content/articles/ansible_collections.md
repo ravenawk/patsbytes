@@ -15,14 +15,32 @@ Roles, playbooks, modules, and plugins can be included in a single collection, a
 | ```ansible.posix```     | Posix compliant systems              |
 | ```community.general``` | Content on a variety of subjects     |
 
-*In most of the examples used in this post, I will be using the **community.general** collection.*
+First let's see if we have any collections on our system.
+```none
+$ ansible-galaxy collection list
+usage: ansible-galaxy [-h] [--version] [-v] TYPE ...
 
+Perform various Role and Collection related operations.
 
+positional arguments:
+  TYPE
+    collection   Manage an Ansible Galaxy collection.
+    role         Manage an Ansible Galaxy role.
+
+optional arguments:
+  --version      show program's version number, config file location, configured module search path, module location, executable location
+                 and exit
+  -h, --help     show this help message and exit
+  -v, --verbose  verbose mode (-vvv for more, -vvvv to enable connection debugging)
+ERROR! - None of the provided paths were usable. Please specify a valid path with --collections-path
+```
+
+Did we get an error? Not really. Ansible looks at all the paths in the COLLECTIONS_PATHS environmental variable, and if it doesn't find any, it gives the above message.
 ### Installing collections
 
 A collection can be installed using the ansible-galaxy command.
 
-```bash
+```none
 $ ansible-galaxy collection install community.general
 Starting galaxy collection install process
 Process install dependency map
@@ -36,17 +54,18 @@ Collection *community.general* is installed at `/home/patsbytes/.ansible/collect
 
 *Some options you can pass to the command*  
 
->-p "path" : Path to install the collection (overrides `COLLECTION_PATHS` see below)   
->-r "file" : Install collections based off a requirements file (see below) 
+- -p "path" : Path to install the collection (overrides `COLLECTION_PATHS` see below)   
+- -r "file" : Install collections based off a requirements file (see below) 
 
 The collection is installed to the first path listed in the `COLLECTIONS_PATHS` environmental variable. By default, this is `~/.ansible/collections`.
 This list of paths can be edited in the ansible.cfg under `[defaults]` using the `collections_paths` key and adding a colon separated list
 
-```ini
+```none
 [defaults]
 collection_paths = ./collections:~/.ansible/collections
 ```
 
+> Excerpt from ansible.cfg
 
 Using a requirements.yml file, you can also install a collection.
 
@@ -56,7 +75,7 @@ ansible-galaxy collection install -r requirements.yml
 
 The format in the requirements.yml file is:
 
-```yaml
+{{< highlight yaml "linenos=table,linenostart=1" >}}
 ---
 collections:
 # With just the collection name
@@ -66,7 +85,7 @@ source options
 - name: namespace.other_collection 
   version: 'version range identifiers (default: ``*``)'
   source: 'The Galaxy URL to pull the collection from (default: ``--api-server`` from cmdline)'
-```
+{{< /highlight >}}
 
 For example:
 
