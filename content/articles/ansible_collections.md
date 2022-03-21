@@ -16,62 +16,39 @@ Roles, playbooks, modules, and plugins can be included in a single collection, a
 | ```community.general``` | Content on a variety of subjects     |
 
 First let's see if we have any collections on our system.
+![Ansible version and collection list](/images/version_collections_list.png)
 
-```none
-$ ansible-galaxy collection list
-usage: ansible-galaxy [-h] [--version] [-v] TYPE ...
+The `ansible --version` shows **ansible collection location = /home/pbytes/.ansible/collections:/usr/share/ansible/collections**, we will come back to how to control that in a bit. For now realize this is the default and is what the *COLLECTIONS_PATHS* environmental variable contains.
+The `ansible-galaxy collection list` found no collections in the above paths, so the command returns no output. 
 
-Perform various Role and Collection related operations.
-
-positional arguments:
-  TYPE
-    collection   Manage an Ansible Galaxy collection.
-    role         Manage an Ansible Galaxy role.
-
-optional arguments:
-  --version      show program's version number, config file location, configured module search path, module location, executable location
-                 and exit
-  -h, --help     show this help message and exit
-  -v, --verbose  verbose mode (-vvv for more, -vvvv to enable connection debugging)
-ERROR! - None of the provided paths were usable. Please specify a valid path with --collections-path
-```
-
-Did we get an error? Not really. Ansible looks at all the paths in the COLLECTIONS_PATHS environmental variable, and if it doesn't find any, it gives the above message.
 ### Installing collections
 
-A collection can be installed using the ansible-galaxy command.
+A collection can be installed by using the ansible-galaxy command.
 
-```none
-$ ansible-galaxy collection install community.general
-Starting galaxy collection install process
-Process install dependency map
-Starting collection install process
-Downloading https://galaxy.ansible.com/download/community-general-4.6.1.tar.gz to /home/patsbytes/.ansible/tmp/ansible-local-465vxd99hl5/tmpdy0zd9qn/community-general-4.6.1-_rg2s6mk
-Installing 'community.general:4.6.1' to '/home/patsbytes/.ansible/collections/ansible_collections/community/general'
-community.general:4.6.1 was installed successfully
-```
+![Install a collection](/images/install_collection.png)
 
-Above `community.general` is installed at `/home/patsbytes/.ansible/collections/`
+Here we install `community.general` in `/home/pbytes/.ansible/collections/`
 
 *Some options you can pass to the install command*  
 
-- -p "path" : Path to install the collection (overrides `COLLECTION_PATHS` see below)   
+- -p "path" : Path to install the collection (overrides *COLLECTION_PATHS*)   
 - -r "file" : Install collections based off a requirements file (see below) 
 
-If you don't use the -p option the collection is installed to the first path listed in the `COLLECTIONS_PATHS` environmental variable. By default, this is `~/.ansible/collections`.
-Let's take a look at that default value.
+If you don't use the -p option the collection is installed to the first path listed in the *COLLECTIONS_PATHS* environmental variable. By default, this is `~/.ansible/collections`.  
+We have mentioned the *COLLECTIONS_PATHS* variable a few times now. Let's take a look at another way to view this variable and it's default value.
 
-```none
-$ ansible-config dump | grep COLLECTIONS_PATHS
-COLLECTIONS_PATHS(default) = ['/home/patsbytes/.ansible/collections', '/usr/share/ansible/collections']
-```
+![COLLECTIONS_PATHS variable](/images/collections_paths_var.png)
 
-If you want to change this list it can be edited in the ansible.cfg under `[defaults]` using the `collections_paths` key and adding a colon separated list for example:
+If we want to change this variable, we need to add/edit the collections_paths key in the ansible.cfg under [defaults]. The format is a colon-separated list that overwrites the current value so we have to make sure to add back in any paths we still want ansible to search for collections. As an example, let's add a path for a collections directory in our current working directory:
 
-```none
+```ini
 [defaults]
 collection_paths = ./collections:~/.ansible/collections:/usr/share/ansible/collections
 ```
+
+Let's look at the new paths:
+
+![COLLECTIONS_PATHS new variable](/images/new_collections_paths_var.png)
 
 Using a requirements.yml file, you can also install a collection or list of collections.
 
