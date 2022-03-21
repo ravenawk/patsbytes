@@ -50,7 +50,7 @@ Let's look at the new paths:
 
 ![COLLECTIONS_PATHS new variable](/images/new_collections_paths_var.png)
 
-Using a requirements.yml file, you can also install a collection or list of collections.
+Another way to install collections is by using a requirements.yml file. 
 
 The format of the requirements.yml file is:
 
