@@ -16,6 +16,7 @@ Roles, playbooks, modules, and plugins can be included in a single collection, a
 | ```community.general``` | Content on a variety of subjects     |
 
 First let's see if we have any collections on our system.
+
 ```none
 $ ansible-galaxy collection list
 usage: ansible-galaxy [-h] [--version] [-v] TYPE ...
