@@ -23,7 +23,7 @@ The `ansible-galaxy collection list` found no collections in the above paths, so
 
 ### Installing collections
 
-A collection can be installed by using the ansible-galaxy command.
+A collection can be installed by using the ansible-galaxy collection install command followed by the collection you want to install.
 
 ![Install a collection](/images/install_collection.png)
 
