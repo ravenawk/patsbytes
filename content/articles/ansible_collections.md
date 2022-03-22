@@ -50,7 +50,9 @@ Let's look at the new paths:
 
 ![COLLECTIONS_PATHS new variable](/images/new_collections_paths_var.png)
 
-Another way to install collections is by using a requirements.yml file. 
+Using the current directory for a collection might make sense if you want to be able to keep a project altogether or are moving it to a host without internet. But we are going to keep things at default for now so will remove the collections_paths key we put in.
+
+Another way to supply the names of collections we want to install is by using a requirements.yml file. 
 
 The format of the requirements.yml file is:
 
@@ -61,13 +63,20 @@ collections:
 - namespace.collection
 
 # With the collection name, version, and source options
+- name: namespace.collection
+  version: version number (default: '*')
+  source: The galaxy URL to pull the collection from (defaul: '--api-server' from cli)
+```
+
+Let's look at an example:
+
+```yaml
+---
+collections:
+- ansible.posix
+
 - name: ansible.netcommon
-  # Version range identifiers (default: ``*``)'
   version: 2.6.1
-  # Source - The Galaxy URL to pull the collection from
-  # (default: ``--api-server`` from cmdline)
-  # Not normally needed for collections on galaxy.ansible.com, 
-  # this would work without this line but inserted here for completeness.
   source: https://galaxy.ansible.com
 ```
 
