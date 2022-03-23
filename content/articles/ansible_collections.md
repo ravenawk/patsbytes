@@ -15,12 +15,15 @@ Roles, playbooks, modules, and plugins can be included in a single collection, a
 | ```ansible.posix```     | Posix compliant systems              |
 | ```community.general``` | Content on a variety of subjects     |
 
-First let's see if we have any collections on our system.
-![Ansible version and collection list](/images/version_collections_list.png)
 
 The `ansible --version` shows **ansible collection location = /home/pbytes/.ansible/collections:/usr/share/ansible/collections**, we will come back to how to control that in a bit. For now realize this is the default and is what the *COLLECTIONS_PATHS* environmental variable contains.
 The `ansible-galaxy collection list` found no collections in the above paths, so the command returns no output. 
 
+Let's take a look at the *COLLECTIONS_PATHS* environmental variable. This variable is used when both installing and using collections. Let's take a look at two ways to see what the value of this variable is.
+
+![COLLECTIONS_PATHS variable](/images/collections_paths_var.png)
+
+Before we go farther into our discussion of collections let's look 
 ### Installing collections
 
 A collection can be installed by using the ansible-galaxy collection install command followed by the collection you want to install.
@@ -52,7 +55,7 @@ Let's look at the new paths:
 
 Using the current directory for a collection might make sense if you want to be able to keep a project altogether or are moving it to a host without internet. But we are going to keep things at default for now so will remove the collections_paths key we put in.
 
-Another way to supply the names of collections we want to install is by using a requirements.yml file. 
+Another way to supply the names of collections we want to install is by using a requirements.yml file, as stated above. 
 
 The format of the requirements.yml file is:
 
@@ -99,31 +102,31 @@ Using collections
 In writing plays and roles refer to a module or plugin from a collection by including the namespace.
 collection before the module or plugin name:
 
+```yaml
 ---
 - hosts: all
-connection: ansible.netcommon.netconf
-tasks:
-- name: use lookup filter to provide xml
-configuration
-ansible.netcommon.netconf_config:
-content: "{{ lookup('file', './config.
-xml') }}"
+  connection: ansible.netcommon.netconf
+  tasks:
+    - name: use lookup filter to provide xml configuration
+      ansible.netcommon.netconf_config:
+        content: "{{ lookup('file', './config.xml') }}"
+```
 
 To avoid a lot of typing the collections keyword can be used in the play. By doing this the namespace.
 collection can then be removed from the front of the module name. The fully qualified collection
 name (FQCN) for plugins and lookups will still need to be used:
 
+```yaml
 ---
 - hosts: all
-connection: ansible.netcommon.netconf
-collections:
-- ansible.netcommon
-tasks:
-- name: use lookup filter to provide xml
-configuration
-netconf_config:
-content: "{{ lookup('file', './config.
-xml')}}"
+  connection: ansible.netcommon.netconf
+  collections:
+    - ansible.netcommon
+  tasks:
+  - name: use lookup filter to provide xml configuration
+    netconf_config:
+      content: "{{ lookup('file', './config.xml')}}"
+```
 
 When using the collections keyword be careful of clashing namespaces (namespaces that have the
 same base module name)
