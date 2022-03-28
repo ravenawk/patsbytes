@@ -18,6 +18,9 @@ params:
   defaultTheme: auto
   disableThemeToggle: false
 
+  cover:
+    linkFullImages: true
+
   ShowReadingTime: true
   ShowShareButtons: true
   ShowPostNavLinks: true
@@ -33,10 +36,10 @@ params:
     imageWidth: 360 # custom size
     imageHeight: 360 # custom size
     buttons:
-      - name: Archive
-        url: "/archive"
       - name: Articles
         url: "/articles"
+      - name: Archive
+        url: "/archive"
 
 menu:
   main:

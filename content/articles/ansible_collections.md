@@ -20,14 +20,14 @@ The `ansible-galaxy collection list` found no collections in the above paths, so
 
 Let's take a look at the *COLLECTIONS_PATHS* environmental variable. This variable is used when both installing and using collections. Let's take a look at two ways to see what the value of this variable is.
 
-![COLLECTIONS_PATHS variable](/images/collections_paths_var.png)
+{{< figure src="/images/collections_paths_var.png" url="/images/collections_paths_var.png" caption="Two ways to display the variable COLLECTIONS_PATHS" >}}
 
 Before we go farther into our discussion of collections let's look 
 ### Installing collections
 
 A collection can be installed by using the ansible-galaxy collection install command followed by the collection you want to install.
 
-![Install a collection](/images/install_collection.png)
+[![A collection to install](/images/install_collection.png)](/images/install_collection.png)
 
 Here we install `community.general` in `/home/pbytes/.ansible/collections/`
 
