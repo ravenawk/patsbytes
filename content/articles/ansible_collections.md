@@ -69,34 +69,28 @@ pbytes@patsbyes:~$
 
 The command found no collections in the defined paths, so the command returns no output. 
 
-[![A collection to install](/images/install_collection.png)](/images/install_collection.png)
+```bash
+pbytes@patsbyes:~$ ansible-config dump | grep COLLECTIONS_PATHS
+COLLECTIONS_PATHS(default) = ['/home/pbytes/.ansible/collections', '/usr/share/ansible/collections']
+pbytes@patsbyes:~$ ansible-galaxy collection install community.general
+Starting galaxy collection install process
+Process install dependency map
+Starting collection install process
+Downloading https://galaxy.ansible.com/download/community-general-4.6.1.tar.gz to /home/pbytes/.ansible/tmp/ansible-local-38223kusp6n1k/tmpp_08hvk1/community-general-4.6.1-am3e6v2d
+Installing 'community.general:4.6.1' to '/home/pbytes/.ansible/collections/ansible_collections/community/general'
+community.general:4.6.1 was installed successfully
+pbytes@patsbyes:~$
+```
 
-Here we install `community.general` in `/home/pbytes/.ansible/collections/`
+Here we install `community.general` to `/home/pbytes/.ansible/collections/`
 
 *Some options you can pass to the install command*  
 
 - -p "path" : Path to install the collection (overrides *COLLECTION_PATHS*)   
 - -r "file" : Install collections based off a requirements file (see below) 
 
-If you don't use the -p option the collection is installed to the first path listed in the *COLLECTIONS_PATHS* environmental variable. By default, this is `~/.ansible/collections`.  
-We have mentioned the *COLLECTIONS_PATHS* variable a few times now. Let's take a look at another way to view this variable and it's default value.
 
-![COLLECTIONS_PATHS variable](/images/collections_paths_var.png)
-
-If we want to change this variable, we need to add/edit the collections_paths key in the ansible.cfg under [defaults]. The format is a colon-separated list that overwrites the current value so we have to make sure to add back in any paths we still want ansible to search for collections. As an example, let's add a path for a collections directory in our current working directory:
-
-```ini
-[defaults]
-collection_paths = ./collections:~/.ansible/collections:/usr/share/ansible/collections
-```
-
-Let's look at the new paths:
-
-![COLLECTIONS_PATHS new variable](/images/new_collections_paths_var.png)
-
-Using the current directory for a collection might make sense if you want to be able to keep a project altogether or are moving it to a host without internet. But we are going to keep things at default for now so will remove the collections_paths key we put in.
-
-Another way to supply the names of collections we want to install is by using a requirements.yml file, as stated above. 
+We can also supply the names of collections we want to install supplying a requirements.yml file.
 
 The format of the requirements.yml file is:
 
@@ -115,6 +109,7 @@ collections:
 Let's look at an example:
 
 ```yaml
+pbytes@patsbyes:~$ cat requirements.yml 
 ---
 collections:
 - ansible.posix
@@ -122,6 +117,22 @@ collections:
 - name: ansible.netcommon
   version: 2.6.1
   source: https://galaxy.ansible.com
+```
+```bash
+pbytes@patsbyes:~$ ansible-galaxy collection install -r requirements.yml 
+Starting galaxy collection install process
+Process install dependency map
+Starting collection install process
+Downloading https://galaxy.ansible.com/download/ansible-netcommon-2.6.1.tar.gz to /home/pbytes/.ansible/tmp/ansible-local-38295sowzo9w1/tmpf0mgtt0w/ansible-netcommon-2.6.1-_7ft872e
+Installing 'ansible.netcommon:2.6.1' to '/home/pbytes/.ansible/collections/ansible_collections/ansible/netcommon'
+Downloading https://galaxy.ansible.com/download/ansible-utils-2.5.2.tar.gz to /home/pbytes/.ansible/tmp/ansible-local-38295sowzo9w1/tmpf0mgtt0w/ansible-utils-2.5.2-5mv0a8o3
+ansible.netcommon:2.6.1 was installed successfully
+Installing 'ansible.utils:2.5.2' to '/home/pbytes/.ansible/collections/ansible_collections/ansible/utils'
+Downloading https://galaxy.ansible.com/download/ansible-posix-1.3.0.tar.gz to /home/pbytes/.ansible/tmp/ansible-local-38295sowzo9w1/tmpf0mgtt0w/ansible-posix-1.3.0-fe2it8qx
+ansible.utils:2.5.2 was installed successfully
+Installing 'ansible.posix:1.3.0' to '/home/pbytes/.ansible/collections/ansible_collections/ansible/posix'
+ansible.posix:1.3.0 was installed successfully
+pbytes@patsbyes:~$
 ```
 
 For example:
