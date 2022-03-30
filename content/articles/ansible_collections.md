@@ -69,7 +69,7 @@ The command found no collections in the defined paths, so the command returns no
 
 A collection can be installed by using the ansible-galaxy collection install command followed by the collection you want to install.
 
-![Install a collection](/images/install_collection.png)
+[![A collection to install](/images/install_collection.png)](/images/install_collection.png)
 
 Here we install `community.general` in `/home/pbytes/.ansible/collections/`
 
@@ -96,7 +96,7 @@ Let's look at the new paths:
 
 Using the current directory for a collection might make sense if you want to be able to keep a project altogether or are moving it to a host without internet. But we are going to keep things at default for now so will remove the collections_paths key we put in.
 
-Another way to supply the names of collections we want to install is by using a requirements.yml file. 
+Another way to supply the names of collections we want to install is by using a requirements.yml file, as stated above. 
 
 The format of the requirements.yml file is:
 
@@ -143,31 +143,31 @@ Using collections
 In writing plays and roles refer to a module or plugin from a collection by including the namespace.
 collection before the module or plugin name:
 
+```yaml
 ---
 - hosts: all
-connection: ansible.netcommon.netconf
-tasks:
-- name: use lookup filter to provide xml
-configuration
-ansible.netcommon.netconf_config:
-content: "{{ lookup('file', './config.
-xml') }}"
+  connection: ansible.netcommon.netconf
+  tasks:
+    - name: use lookup filter to provide xml configuration
+      ansible.netcommon.netconf_config:
+        content: "{{ lookup('file', './config.xml') }}"
+```
 
 To avoid a lot of typing the collections keyword can be used in the play. By doing this the namespace.
 collection can then be removed from the front of the module name. The fully qualified collection
 name (FQCN) for plugins and lookups will still need to be used:
 
+```yaml
 ---
 - hosts: all
-connection: ansible.netcommon.netconf
-collections:
-- ansible.netcommon
-tasks:
-- name: use lookup filter to provide xml
-configuration
-netconf_config:
-content: "{{ lookup('file', './config.
-xml')}}"
+  connection: ansible.netcommon.netconf
+  collections:
+    - ansible.netcommon
+  tasks:
+  - name: use lookup filter to provide xml configuration
+    netconf_config:
+      content: "{{ lookup('file', './config.xml')}}"
+```
 
 When using the collections keyword be careful of clashing namespaces (namespaces that have the
 same base module name)
