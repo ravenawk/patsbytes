@@ -17,9 +17,9 @@ Roles, playbooks, modules, and plugins can be included in a single collection, a
 
 ### A variable that is useful to know
 
-Before we dive into installing and using collections, I'd like to detour for a moment and look at the COLLECTIONS_PATHS environmental variable. 
+Before we dive into installing and using collections, let's detour for a moment and look at the COLLECTIONS_PATHS environmental variable. 
 
-The _COLLECTIONS_PATHS_ variable is what ansible uses to locate installed collections on the system, and when installing a collection, ansible uses the first path in this list. 
+_COLLECTIONS_PATHS_ is a list of paths that ansible uses to locate installed collections on the system, and when installing a collection, ansible uses the first path in this list. 
 
 Let's look at a couple of ways to see this variable's value.
 
@@ -39,9 +39,9 @@ ansible [core 2.12.2]
 pbytes@patsbyes:~$
 ```
 
-The `ansible-config dump` command shows the value of _COLLECTIONS_PATHS_ in blue above, currently set to the default. The ansible --version command shows the same paths again in blue, but names it ansible collection location.
+The `ansible-config dump` command shows the value of _COLLECTIONS_PATHS_ shown above is currently set to the default value. The ansible --version command shows the same list but refers to it as _ansible collection location_.
 
-We can modify this list of paths adding a key _collections_paths_ to the ansible.cfg under the defaults section.
+We can modify this list in the ansible.cfg under the defaults section by adding the key _collections_paths_.
 
 ```bash 
 pbytes@patsbyes:~$ cat /etc/ansible/ansible.cfg
@@ -52,13 +52,14 @@ COLLECTIONS_PATHS(/etc/ansible/ansible.cfg) = ['/home/pbytes/.ansible/collection
 pbytes@patsbyes:~$
 ```
 There are two things of note in the above example. 
-1. We don't see the _/usr/share/..._ path anymore because we did not add it to the new list.
-2. `ansible-config dump` shows which ansible.cfg is setting these new values.
+1. We don't see the _/usr/share/..._ path anymore because we did not add it to the list.
+2. `ansible-config dump` shows which ansible.cfg is setting these new values, just like it showed it was using defaults before.
 
-> NOTE: There is an additional location where ansible searches for collections. It will search for the collections folder in the directory a playbook runs.
+> **NOTE:** There is an additional location where ansible searches for collections. It will search for the collections folder in the directory in which a playbook runs.
 
 ### Installing collections
-First, let's check if there are any collections on our system. We do this by using the `ansible-galaxy collection list` command.
+To install a collection you just type `ansible collection install <collection-name>`.
+Before we do that, let's check if there are any collections on our system. We do this by using the `ansible-galaxy collection list` command.
 
 ```none
 pbytes@patsbyes:~$ ansible-galaxy collection list
