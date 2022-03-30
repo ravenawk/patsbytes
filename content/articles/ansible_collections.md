@@ -41,7 +41,7 @@ pbytes@patsbyes:~$
 
 The `ansible-config dump` command shows the value of _COLLECTIONS_PATHS_ shown above is currently set to the default value. The ansible --version command shows the same list but refers to it as _ansible collection location_.
 
-We can modify this list in the ansible.cfg under the defaults section by adding the key _collections_paths_.
+We can modify this list in the ansible.cfg under the defaults section by adding the key _collections_paths_. (Below is just an illustration we won't be keeping these values in our future examples.)
 
 ```bash 
 pbytes@patsbyes:~$ cat /etc/ansible/ansible.cfg
@@ -58,7 +58,8 @@ There are two things of note in the above example.
 > **NOTE:** There is an additional location where ansible searches for collections. It will search for the collections folder in the directory in which a playbook runs.
 
 ### Installing collections
-To install a collection you just type `ansible collection install <collection-name>`.
+One way to install a collection is at the cli with `ansible collection install <collection-name>`.
+
 Before we do that, let's check if there are any collections on our system. We do this by using the `ansible-galaxy collection list` command.
 
 ```none
@@ -67,8 +68,6 @@ pbytes@patsbyes:~$
 ```
 
 The command found no collections in the defined paths, so the command returns no output. 
-
-A collection can be installed by using the ansible-galaxy collection install command followed by the collection you want to install.
 
 [![A collection to install](/images/install_collection.png)](/images/install_collection.png)
 
