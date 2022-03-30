@@ -21,6 +21,8 @@ Before we dive into installing and using collections, let's detour for a moment 
 
 _COLLECTIONS_PATHS_ is a list of paths that ansible uses to locate installed collections on the system, and when installing a collection, ansible uses the first path in this list. 
 
+> **NOTE:** There is an additional location where ansible searches for collections. It will search for the collections folder in the directory in which a playbook runs.
+
 Let's look at a couple of ways to see this variable's value.
 
 ```bash
@@ -55,7 +57,6 @@ There are two things of note in the above example.
 1. We don't see the _/usr/share/..._ path anymore because we did not add it to the list.
 2. `ansible-config dump` shows which ansible.cfg is setting these new values, just like it showed it was using defaults before.
 
-> **NOTE:** There is an additional location where ansible searches for collections. It will search for the collections folder in the directory in which a playbook runs.
 
 ### Installing collections
 One way to install a collection is at the cli with `ansible collection install <collection-name>`.
@@ -86,7 +87,7 @@ Here we install `community.general` to `/home/pbytes/.ansible/collections/`
 
 *Some options you can pass to the install command*  
 
-- -p "path" : Path to install the collection (overrides *COLLECTION_PATHS*)   
+- -p "path" : Path to install the collection
 - -r "file" : Install collections based off a requirements file (see below) 
 
 
@@ -133,6 +134,10 @@ ansible.utils:2.5.2 was installed successfully
 Installing 'ansible.posix:1.3.0' to '/home/pbytes/.ansible/collections/ansible_collections/ansible/posix'
 ansible.posix:1.3.0 was installed successfully
 pbytes@patsbyes:~$
+```
+
+Now let's look at what collections are on our system.
+
 ```
 
 For example:
