@@ -151,7 +151,8 @@ community.general 4.6.1
 pbytes@patsbyes:~$
 ```
 
-The above shows all collections we have installed over the last few examples, including dependencies, in this case, ansible.utils.
+The above shows all collections we have installed, and as expected, they are in the first path in the COLLECTIONS_PATHS variable.
+You might also notice an extra collection listed, ansible.utils, that is because of a dependency by ansible.netcommon.
 
 For example:
 
