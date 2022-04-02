@@ -139,6 +139,19 @@ pbytes@patsbyes:~$
 Now let's look at what collections are on our system.
 
 ```
+pbytes@patsbyes:~$ ansible-galaxy collection list
+
+# /home/pbytes/.ansible/collections/ansible_collections
+Collection        Version
+----------------- -------
+ansible.netcommon 2.6.1
+ansible.posix     1.3.0
+ansible.utils     2.5.2
+community.general 4.6.1
+pbytes@patsbyes:~$
+```
+
+The above shows all collections we have installed over the last few examples, including dependencies, in this case, ansible.utils.
 
 For example:
 
