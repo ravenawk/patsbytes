@@ -1,6 +1,6 @@
 ---
-title: "Ansible Collections"
-date: 2022-03-16
+title: "Ansible Collections - The way to include new"
+date: 2022-05-22
 draft: false
 ---
 
