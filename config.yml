@@ -14,7 +14,7 @@ params:
     - PaperMod
     - Portfolio
   author: Pat Martin
-  DateFormat: "January 1, 2001"
+  DateFormat: "January 1, 2006"
   defaultTheme: auto
   disableThemeToggle: false
 

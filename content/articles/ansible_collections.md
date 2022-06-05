@@ -1,12 +1,14 @@
 ---
-title: "Ansible Collections - The way to include new"
-date: 2022-05-22
+title: "Ansible Collections - A Primer"
+date: 2022-06-05
 draft: false
 ---
 
-Ansible content collections, collections for short, are the way to include content not included in ansible-core. You can download collections from  https://galaxy.ansible.com or https://console.redhat.com (with a subscription) and even create your own.
+Ansible content collections, collections for short, are the way to include content not included in ansible-core. Roles, playbooks, modules, and plugins can be included in a collection, allowing you to bundle similar content together. 
 
-Roles, playbooks, modules, and plugins can be included in a single collection, allowing you to bundle content with similar use cases together. When referring to a collection, use “namespace.collection”. Let’s look at some examples.
+Collections first appeared in Ansible 2.8 as a technical preview. Ansible 2.10 moved most modules from the main ansible repository to collections. Individual collection updates are now not reliant on the release of Ansible itself and can be released more frequently if needed.
+
+You can download collections from  https://galaxy.ansible.com or https://console.redhat.com (with a subscription) and even create your own. This article will show how to install and use ansible collections in your playbooks and roles.
 
 | Collection Name         | Description                          |
 |-------------------------|--------------------------------------|
