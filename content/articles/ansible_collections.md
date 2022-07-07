@@ -4,26 +4,27 @@ date: 2022-06-05
 draft: false
 ---
 
-Ansible content collections, collections for short, are the way to include content not included in ansible-core. Roles, playbooks, modules, and plugins can be included in a collection, allowing you to bundle similar content together. 
+Ansible content collections, collections for short, are a way to add content not included in Ansible core. Roles, playbooks, modules, and plugins can be included in a collection, allowing bundling of similar content together. 
 
-Collections first appeared in Ansible 2.8 as a technical preview. Ansible 2.10 moved most modules from the main ansible repository to collections. Individual collection updates are now not reliant on the release of Ansible itself and can be released more frequently if needed.
+Collections first appeared in Ansible 2.8 as a technical preview. Ansible 2.10 moved most modules from the main Ansible repository to separate collections repositories. Individual collection updates are now not reliant on the release of Ansible itself and can be released more frequently if needed. 
 
-You can download collections from  https://galaxy.ansible.com or https://console.redhat.com (with a subscription) and even create your own. This article will show how to install and use ansible collections in your playbooks and roles.
-
-| Collection Name         | Description                          |
-|-------------------------|--------------------------------------|
-| ```amazon.aws```        | Managing aws                         |
-| ```ansible.netcommon``` | General networking tools             |
-| ```ansible.posix```     | Posix compliant systems              |
-| ```community.general``` | Content on a variety of subjects     |
+In this article, I will focus on using the command line to install and use Ansible collections.
 
 ### A variable that is useful to know
 
-Before we dive into installing and using collections, let's detour for a moment and look at the COLLECTIONS_PATHS environmental variable. 
+Before we dive into installing and using collections, let's take a moment and look at the _COLLECTIONS_PATHS_ environmental variable.
 
-_COLLECTIONS_PATHS_ is a list of paths that ansible uses to locate installed collections on the system, and when installing a collection, ansible uses the first path in this list. 
+The _COLLECTIONS_PATHS_ environment variable is a list of paths that Ansible uses to locate installed collections on the system.
 
 > **NOTE:** There is an additional location where ansible searches for collections. It will search for the collections folder in the directory in which a playbook runs.
+
+Let's look at two ways to see this variable's value. Using the commands:
+
+`ansible-config dump | grep COLLECTIONS_PATHS`
+
+and
+
+`ansible --version`
 
 Let's look at a couple of ways to see this variable's value.
 
