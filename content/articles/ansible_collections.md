@@ -18,7 +18,7 @@ The _COLLECTIONS_PATHS_ environment variable is a list of paths that Ansible use
 
 > **NOTE:** There is an additional location where ansible searches for collections. It will search for the collections folder in the directory in which a playbook runs.
 
-Let's look at two ways to see this variable's value. Using the commands:
+Let's look at a couple ways to see this variable's value.
 
 `ansible-config dump | grep COLLECTIONS_PATHS`
 
