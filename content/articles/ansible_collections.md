@@ -26,7 +26,9 @@ and
 
 `ansible --version`
 
-```bash {linenos=false,hl_lines=[6, 12]}
+```bashsession {linenos=false,hl_lines=[2, 8]}
+$ ansible-config dump | grep COLLECTIONS_PATHS
+COLLECTIONS_PATHS(default) = ['/home/pbytes/.ansible/collections', '/usr/share/ansible/collections']
 $ ansible --version
 ansible [core 2.13.2]
   config file = None
@@ -37,52 +39,67 @@ ansible [core 2.13.2]
   python version = 3.9.2 (default, Feb 28 2021, 17:03:44) [GCC 10.2.1 20210110]
   jinja version = 3.1.2
   libyaml = True
-$ ansible-config dump | grep COLLECTIONS_PATHS
-COLLECTIONS_PATHS(default) = ['/home/pbytes/.ansible/collections', '/usr/share/ansible/collections']
 $
 ```
 
 The `ansible-config dump` command shows that **COLLECTIONS_PATHS** is currently set to two directries and they are the default values. 
 The `ansible --version` command shows the same list but refers to it as **ansible collection location** and doesn't tell you if it is set to defaults or not.
 
-We can modify this list with our ansible.cfg under the **defaults** section by adding the key **_collections_paths_**. 
+We can modify this list, in our ansible.cfg under the **defaults** section let's add the key **_collections_paths_** and add two paths. 
+Let's keep the home directory path and add `/opt/ansible/collections` instead of the /usr/share path.
 
-```none
+```bashsession {linenos=false,hl_lines=[4]}
 $ cat ansible.cfg
 [defaults]
 inventory=/etc/ansible/hosts
-collection_path=~/.ansible/collections:/opt/ansible/collections
+collections_paths=~/.ansible/collections:/opt/ansible/collections
 ```
 
-There are two things of note in the above. 
-1. We don't see the _/usr/share/..._ path anymore because we did not add it to the list.
-2. `ansible-config dump` shows which ansible.cfg is setting these new values, just like it showed it was using defaults before.
+Let's run the ansible-config dump command again.
 
+```bashsession {linenos=false,hl_lines=[4]}
+$ ansible-config dump | grep COLLECTIONS_PATHS
+COLLECTIONS_PATHS(/home/pbytes/Projects/ansible/ansible.cfg) = ['/home/pbytes/.ansible/collections', '/opt/ansible/collections']
+```
+
+Notice `ansible-config dump` shows which ansible.cfg is setting these new values, just like it showed it was using defaults before.
 
 ### Installing collections
 We install a collection at the command line with `ansible-galaxy collection install <collection-name>`.
 
 Before we do that, let's check if there are any collections on our system. We do this by using the `ansible-galaxy collection list` command.
 
-```bash
+```bashsession
 $ ansible-galaxy collection list
 $
 ```
 
 The command found no collections in the defined paths, so the command returns no output. 
+Depending on how you installed ansible on your system this might have a long list of collections that your package manager includes. 
 
-```bash
+>**NOTE:** If your collections paths are set but you get an error with the comment: 
+>
+>**`ERROR! - None of the provided paths were usable. Please specify a valid path with --collections-path`**
+>
+>This is another form of ansible telling you that you have no collections in your collection paths. 
+>This is a bug that might be fixed by the time you read this but wanted to include it just in case.
+>This is just like above where nothing is returned, so you can safely ignore the error.
+
+Let's install a collection.
+
+```bashsession
 $ ansible-galaxy collection install community.general
 Starting galaxy collection install process
 Process install dependency map
 Starting collection install process
-Downloading https://galaxy.ansible.com/download/community-general-4.6.1.tar.gz to /home/pbytes/.ansible/tmp/ansible-local-38223kusp6n1k/tmpp_08hvk1/community-general-4.6.1-am3e6v2d
-Installing 'community.general:4.6.1' to '/home/pbytes/.ansible/collections/ansible_collections/community/general'
-community.general:4.6.1 was installed successfully
+Downloading https://galaxy.ansible.com/download/community-general-5.4.0.tar.gz to /home/pbytes/.ansible/tmp/ansible-local-3884l5oljsp/tmpozyir8e3/community-general-5.4.0-e9ebd_hd
+Installing 'community.general:5.4.0' to '/home/pbytes/.ansible/collections/ansible_collections/community/general'
+community.general:5.4.0 was installed successfully
 $
 ```
 
-Here we install `community.general` to `/home/pbytes/.ansible/collections/`
+Here we install `community.general` collection. 
+The ansible-galaxy command installs it to the first path listed in **COLLECTIONS_PATHS**, in our case `/home/pbytes/.ansible/collections/`
 
 *Some options you can pass to the install command*  
 

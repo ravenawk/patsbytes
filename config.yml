@@ -60,9 +60,9 @@ menu:
       url: /archives/
       weight: 40
 
-markup:
-    highlight:
-      codeFences: false
-      pygmentsCodeFences: false
-      guessSyntax: true
+# markup:
+#     highlight:
+#       codeFences: false
+#       pygmentsCodeFences: false
+#       guessSyntax: true
 ...
