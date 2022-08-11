@@ -110,23 +110,13 @@ The ansible-galaxy command installs it to the first path listed in **COLLECTIONS
 We can also supply the names of collections we want to install supplying a requirements.yml file.
 
 The format of the requirements.yml file is:
-
-```yaml
----
-collections:
-# With just the collection name
-- namespace.collection
-
-# With the collection name, version, and source options
-- name: namespace.collection
-  version: version number (default: '*')
-  source: The galaxy URL to pull the collection from (defaul: '--api-server' from cli)
-```
-
 Let's look at an example:
 
-```yaml
+```bashsession
 $ cat requirements.yml 
+```
+
+```yaml
 ---
 collections:
 - ansible.posix
@@ -135,6 +125,7 @@ collections:
   version: 2.6.1
   source: https://galaxy.ansible.com
 ```
+
 ```bash
 $ ansible-galaxy collection install -r requirements.yml 
 Starting galaxy collection install process
