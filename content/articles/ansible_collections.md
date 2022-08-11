@@ -26,64 +26,60 @@ and
 
 `ansible --version`
 
-Let's look at a couple of ways to see this variable's value.
-
-```bash
-pbytes@patsbyes:~$ ansible-config dump | grep COLLECTIONS_PATHS
-COLLECTIONS_PATHS(default) = ['/home/pbytes/.ansible/collections', '/usr/share/ansible/collections']
-pbytes@patsbyes:~$ ansible --version
-ansible [core 2.12.2]
-  config file = /etc/ansible/ansible.cfg
+```bash {linenos=false,hl_lines=[6, 12]}
+$ ansible --version
+ansible [core 2.13.2]
+  config file = None
   configured module search path = ['/home/pbytes/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
-  ansible python module location = /usr/lib/python3.10/site-packages/ansible
+  ansible python module location = /home/pbytes/Projects/ansible/venv/lib/python3.9/site-packages/ansible
   ansible collection location = /home/pbytes/.ansible/collections:/usr/share/ansible/collections
-  executable location = /usr/bin/ansible
-  python version = 3.10.0 (default, Oct  4 2021, 00:00:00) [GCC 11.2.1 20210728 (Red Hat 11.2.1-1)]
-  jinja version = 3.0.1
+  executable location = /home/pbytes/Projects/ansible/venv/bin/ansible
+  python version = 3.9.2 (default, Feb 28 2021, 17:03:44) [GCC 10.2.1 20210110]
+  jinja version = 3.1.2
   libyaml = True
-pbytes@patsbyes:~$
+$ ansible-config dump | grep COLLECTIONS_PATHS
+COLLECTIONS_PATHS(default) = ['/home/pbytes/.ansible/collections', '/usr/share/ansible/collections']
+$
 ```
 
-The `ansible-config dump` command shows the value of _COLLECTIONS_PATHS_ shown above is currently set to the default value. The ansible --version command shows the same list but refers to it as _ansible collection location_.
+The `ansible-config dump` command shows that **COLLECTIONS_PATHS** is currently set to two directries and they are the default values. 
+The `ansible --version` command shows the same list but refers to it as **ansible collection location** and doesn't tell you if it is set to defaults or not.
 
-We can modify this list in the ansible.cfg under the defaults section by adding the key _collections_paths_. (Below is just an illustration we won't be keeping these values in our future examples.)
+We can modify this list with our ansible.cfg under the **defaults** section by adding the key **_collections_paths_**. 
 
-```bash 
-pbytes@patsbyes:~$ cat /etc/ansible/ansible.cfg
+```none
+$ cat ansible.cfg
 [defaults]
-collections_paths = ~/.ansible/collections:/opt/share/ansible/collections
-pbytes@patsbyes:~$ ansible-config dump | grep COLLECTIONS_PATHS
-COLLECTIONS_PATHS(/etc/ansible/ansible.cfg) = ['/home/pbytes/.ansible/collections', '/opt/share/ansible/collections']
-pbytes@patsbyes:~$
+inventory=/etc/ansible/hosts
+collection_path=~/.ansible/collections:/opt/ansible/collections
 ```
-There are two things of note in the above example. 
+
+There are two things of note in the above. 
 1. We don't see the _/usr/share/..._ path anymore because we did not add it to the list.
 2. `ansible-config dump` shows which ansible.cfg is setting these new values, just like it showed it was using defaults before.
 
 
 ### Installing collections
-One way to install a collection is at the cli with `ansible collection install <collection-name>`.
+We install a collection at the command line with `ansible-galaxy collection install <collection-name>`.
 
 Before we do that, let's check if there are any collections on our system. We do this by using the `ansible-galaxy collection list` command.
 
-```none
-pbytes@patsbyes:~$ ansible-galaxy collection list
-pbytes@patsbyes:~$
+```bash
+$ ansible-galaxy collection list
+$
 ```
 
 The command found no collections in the defined paths, so the command returns no output. 
 
 ```bash
-pbytes@patsbyes:~$ ansible-config dump | grep COLLECTIONS_PATHS
-COLLECTIONS_PATHS(default) = ['/home/pbytes/.ansible/collections', '/usr/share/ansible/collections']
-pbytes@patsbyes:~$ ansible-galaxy collection install community.general
+$ ansible-galaxy collection install community.general
 Starting galaxy collection install process
 Process install dependency map
 Starting collection install process
 Downloading https://galaxy.ansible.com/download/community-general-4.6.1.tar.gz to /home/pbytes/.ansible/tmp/ansible-local-38223kusp6n1k/tmpp_08hvk1/community-general-4.6.1-am3e6v2d
 Installing 'community.general:4.6.1' to '/home/pbytes/.ansible/collections/ansible_collections/community/general'
 community.general:4.6.1 was installed successfully
-pbytes@patsbyes:~$
+$
 ```
 
 Here we install `community.general` to `/home/pbytes/.ansible/collections/`
@@ -113,7 +109,7 @@ collections:
 Let's look at an example:
 
 ```yaml
-pbytes@patsbyes:~$ cat requirements.yml 
+$ cat requirements.yml 
 ---
 collections:
 - ansible.posix
@@ -123,7 +119,7 @@ collections:
   source: https://galaxy.ansible.com
 ```
 ```bash
-pbytes@patsbyes:~$ ansible-galaxy collection install -r requirements.yml 
+$ ansible-galaxy collection install -r requirements.yml 
 Starting galaxy collection install process
 Process install dependency map
 Starting collection install process
@@ -136,7 +132,7 @@ Downloading https://galaxy.ansible.com/download/ansible-posix-1.3.0.tar.gz to /h
 ansible.utils:2.5.2 was installed successfully
 Installing 'ansible.posix:1.3.0' to '/home/pbytes/.ansible/collections/ansible_collections/ansible/posix'
 ansible.posix:1.3.0 was installed successfully
-pbytes@patsbyes:~$
+$
 ```
 
 Now let's look at what collections are on our system.
