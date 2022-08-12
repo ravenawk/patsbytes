@@ -48,8 +48,10 @@ The `ansible --version` command shows the same list but refers to it as **ansibl
 We can modify this list, in our ansible.cfg under the **defaults** section let's add the key **_collections_paths_** and add two paths. 
 Let's keep the home directory path and add `/opt/ansible/collections` instead of the /usr/share path.
 
-```bashsession {linenos=false,hl_lines=[4]}
+```bashsession
 $ cat ansible.cfg
+```
+```ini
 [defaults]
 inventory=/etc/ansible/hosts
 collections_paths=~/.ansible/collections:/opt/ansible/collections
@@ -98,7 +100,7 @@ community.general:5.4.0 was installed successfully
 $
 ```
 
-Here we install `community.general` collection. 
+Here we installed the `community.general` collection. 
 The ansible-galaxy command installs it to the first path listed in **COLLECTIONS_PATHS**, in our case `/home/pbytes/.ansible/collections/`
 
 *Some options you can pass to the install command*  
@@ -107,10 +109,7 @@ The ansible-galaxy command installs it to the first path listed in **COLLECTIONS
 - -r "file" : Install collections based off a requirements file (see below) 
 
 
-We can also supply the names of collections we want to install supplying a requirements.yml file.
-
-The format of the requirements.yml file is:
-Let's look at an example:
+Let's look at an example of a requirements.yml file:
 
 ```bashsession
 $ cat requirements.yml 
@@ -118,65 +117,52 @@ $ cat requirements.yml
 
 ```yaml
 ---
-collections:
+collections: 
+# Can be a list of collections names
 - ansible.posix
 
+ # Or Can be a list with name, version(opttional), and source(optional)
 - name: ansible.netcommon
   version: 2.6.1
   source: https://galaxy.ansible.com
 ```
 
-```bash
-$ ansible-galaxy collection install -r requirements.yml 
+```bashsession
+$ ansible-galaxy collection install -r requirements.yml
 Starting galaxy collection install process
 Process install dependency map
 Starting collection install process
-Downloading https://galaxy.ansible.com/download/ansible-netcommon-2.6.1.tar.gz to /home/pbytes/.ansible/tmp/ansible-local-38295sowzo9w1/tmpf0mgtt0w/ansible-netcommon-2.6.1-_7ft872e
+Downloading https://galaxy.ansible.com/download/ansible-netcommon-2.6.1.tar.gz to /home/pbytes/.ansible/tmp/ansible-local-478cvza3v7i/tmpxvfwt8xg/ansible-netcommon-2.6.1-pjxnuzhl
 Installing 'ansible.netcommon:2.6.1' to '/home/pbytes/.ansible/collections/ansible_collections/ansible/netcommon'
-Downloading https://galaxy.ansible.com/download/ansible-utils-2.5.2.tar.gz to /home/pbytes/.ansible/tmp/ansible-local-38295sowzo9w1/tmpf0mgtt0w/ansible-utils-2.5.2-5mv0a8o3
+Downloading https://galaxy.ansible.com/download/ansible-utils-2.6.1.tar.gz to /home/pbytes/.ansible/tmp/ansible-local-478cvza3v7i/tmpxvfwt8xg/ansible-utils-2.6.1-k85dhzjq
 ansible.netcommon:2.6.1 was installed successfully
-Installing 'ansible.utils:2.5.2' to '/home/pbytes/.ansible/collections/ansible_collections/ansible/utils'
-Downloading https://galaxy.ansible.com/download/ansible-posix-1.3.0.tar.gz to /home/pbytes/.ansible/tmp/ansible-local-38295sowzo9w1/tmpf0mgtt0w/ansible-posix-1.3.0-fe2it8qx
-ansible.utils:2.5.2 was installed successfully
-Installing 'ansible.posix:1.3.0' to '/home/pbytes/.ansible/collections/ansible_collections/ansible/posix'
-ansible.posix:1.3.0 was installed successfully
+Installing 'ansible.utils:2.6.1' to '/home/pbytes/.ansible/collections/ansible_collections/ansible/utils'
+Downloading https://galaxy.ansible.com/download/ansible-posix-1.4.0.tar.gz to /home/pbytes/.ansible/tmp/ansible-local-478cvza3v7i/tmpxvfwt8xg/ansible-posix-1.4.0-0i7peh41
+ansible.utils:2.6.1 was installed successfully
+Installing 'ansible.posix:1.4.0' to '/home/pbytes/.ansible/collections/ansible_collections/ansible/posix'
+ansible.posix:1.4.0 was installed successfully
 $
 ```
 
 Now let's look at what collections are on our system.
 
 ```
-pbytes@patsbyes:~$ ansible-galaxy collection list
+$ ansible-galaxy collection list
 
 # /home/pbytes/.ansible/collections/ansible_collections
 Collection        Version
 ----------------- -------
 ansible.netcommon 2.6.1
-ansible.posix     1.3.0
-ansible.utils     2.5.2
-community.general 4.6.1
-pbytes@patsbyes:~$
+ansible.posix     1.4.0
+ansible.utils     2.6.1
+community.general 5.4.0
+$
 ```
 
 The above shows all collections we have installed, and as expected, they are in the first path in the COLLECTIONS_PATHS variable.
-You might also notice an extra collection listed, ansible.utils, that is because of a dependency by ansible.netcommon.
+You might also notice an extra collection listed, ansible.utils, there was a dependency for it by ansible.netcommon.
 
-For example:
-
-Installing in tower
-To use a collection in ansible tower put the requirements.yml file in the collections directory located in
-the root of the project. As seen below:
-
-project/
-ansible.cfg
-collections
-requirements.yml
-inventory
-playbook.yml
-roles
-requirements.yml
-
-Using collections
+### Using collections
 In writing plays and roles refer to a module or plugin from a collection by including the namespace.
 collection before the module or plugin name:
 
