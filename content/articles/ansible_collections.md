@@ -12,13 +12,12 @@ In this article, I will focus on using the command line to install and use Ansib
 
 ### A variable that is useful to know
 
-Before we dive into installing and using collections, let's take a moment and look at the _COLLECTIONS_PATHS_ environmental variable.
-
-The _COLLECTIONS_PATHS_ environment variable is a list of paths that Ansible uses to locate installed collections on the system.
+Before we dive into installing and using collections, let's take a moment and look at the _COLLECTIONS_PATHS_ environment variable.
+This variable is a list of paths that Ansible uses to locate installed collections on the system.
 
 > **NOTE:** There is an additional location where ansible searches for collections. It will search for the collections folder in the directory in which a playbook runs.
 
-Let's look at a couple of ways to see this variable's value using `ansible-config dump | grep COLLECTIONS_PATHS` and `ansible --version`.
+Let's look at a couple of ways to see this variable's value using the two command _ansible-config dump | grep COLLECTIONS_PATHS_ and _ansible --version_.
 
 ```bashsession {linenos=false,hl_lines=[2, 8]}
 $ ansible-config dump | grep COLLECTIONS_PATHS
@@ -36,11 +35,11 @@ ansible [core 2.13.2]
 $
 ```
 
-The `ansible-config dump` command shows the defaults for COLLECTIONS_PATHS as a list of two directories.
-The `ansible --version` command shows the same list but refers to it as **ansible collection location** and doesn't tell you if it is set to defaults or not.
+The _ansible-config dump_ command shows the defaults for COLLECTIONS_PATHS as a list of two directories.
+The _ansible --version_ command shows the same list but refers to it as _ansible collection location_ and doesn't tell you if it is set to defaults or not.
 
-We can modify this list in our ansible.cfg. Under the **defaults** section, let's add the key **_collections_paths_** and change one of the paths. 
-We'll keep the home directory path and add `/opt/ansible/collections` instead of the `/usr/share...` path.
+We can modify this list in our ansible.cfg. Under the defaults section, let's add the key _collections_paths_ and change one of the paths. 
+We'll keep the home directory path and add _/opt/ansible/collections_ instead of the _/usr/share..._ path.
 
 ```bashsession
 $ cat ansible.cfg
@@ -51,19 +50,17 @@ inventory=/etc/ansible/hosts
 collections_paths=~/.ansible/collections:/opt/ansible/collections
 ```
 
-Let's run the `ansible-config` dump command again.
+Let's run the _ansible-config_ dump command again.
 
 ```bashsession {linenos=false,hl_lines=[4]}
 $ ansible-config dump | grep COLLECTIONS_PATHS
 COLLECTIONS_PATHS(/home/pbytes/Projects/ansible/ansible.cfg) = ['/home/pbytes/.ansible/collections', '/opt/ansible/collections']
 ```
 
-Notice `ansible-config dump` shows which ansible.cfg is setting these new values, just like it showed it was using defaults before.
+Notice _ansible-config dump_ shows which ansible.cfg is setting these new values, just like it showed it was using defaults before.
 
-### Installing collections
-We install a collection at the command line with `ansible-galaxy collection install <collection-name>`.
 
-Before we do that, let's check if there are any collections on our system. We do this by using `ansible-galaxy collection list`.
+Our path is configured, let's check if there are any collections on our system in those paths. We do this by using _ansible-galaxy collection list_.
 
 ```bashsession
 $ ansible-galaxy collection list
@@ -77,9 +74,10 @@ Depending on how you installed ansible on your system, this might have a long li
 >
 >**`ERROR! - None of the provided paths were usable. Please specify a valid path with --collections-path`**
 >
->This also says you have no collections installed, so you can safely ignore the error.
+>This also means you have no collections in your defined paths, so you can safely ignore the error.
 
-Let's install a collection.
+### Installing collections
+One way to install a collection at the command line is with _ansible-galaxy collection install collection.name_.
 
 ```bashsession
 $ ansible-galaxy collection install community.general
