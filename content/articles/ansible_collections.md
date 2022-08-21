@@ -68,7 +68,7 @@ $
 ```
 
 The command found no collections in the defined paths, so the command returns no output. 
-Depending on how you installed ansible on your system, this might have a long list of collections that your package manager included at install time.
+Depending on how you installed ansible on your system, this might have a long list of collections that your package manager included during the ansible install.
 
 >**NOTE:** There is a bug that might return the following error.
 >
@@ -77,21 +77,21 @@ Depending on how you installed ansible on your system, this might have a long li
 >This also means you have no collections in your defined paths, so you can safely ignore the error.
 
 ### Installing collections
-One way to install a collection at the command line is with _ansible-galaxy collection install collection.name_.
+One way to install a collection at the command line is with _ansible-galaxy collection install <collection.name>_.
 
 ```bashsession
-$ ansible-galaxy collection install community.general
+$ ansible-galaxy collection install ansible.windows
 Starting galaxy collection install process
 Process install dependency map
 Starting collection install process
-Downloading https://galaxy.ansible.com/download/community-general-5.4.0.tar.gz to /home/pbytes/.ansible/tmp/ansible-local-3884l5oljsp/tmpozyir8e3/community-general-5.4.0-e9ebd_hd
-Installing 'community.general:5.4.0' to '/home/pbytes/.ansible/collections/ansible_collections/community/general'
-community.general:5.4.0 was installed successfully
+Downloading https://galaxy.ansible.com/download/ansible-windows-1.11.0.tar.gz to /home/pbytes/.ansible/tmp/ansible-local-37420dwgkpdj/tmpqwyitqni/ansible-windows-1.11.0-6w0zvtsa
+Installing 'ansible.windows:1.11.0' to '/home/pbytes/.ansible/collections/ansible_collections/ansible/windows'
+ansible.windows:1.11.0 was installed successfully
 $
 ```
 
-Here we installed the `community.general` collection. 
-The ansible-galaxy command installs it to the first path listed in **COLLECTIONS_PATHS**, in our case `/home/pbytes/.ansible/collections/`
+Here we installed the _ansible.windows_ collection. 
+The ansible-galaxy command installs it to the first path listed in _COLLECTIONS_PATHS_, in our case `/home/pbytes/.ansible/collections/`
 
 *Some options you can pass to the install command*  
 
@@ -119,19 +119,27 @@ collections:
 Let's use this requirements file and install those collections.
 
 ```bashsession
-$ ansible-galaxy collection install -r requirements.yml
+$ ansible-galaxy collection install -r collections/requirements.yml -p ./collections
 Starting galaxy collection install process
+[WARNING]: The specified collections path
+'/home/pbytes/Projects/ansible/collections' is not part of the configured
+Ansible collections paths
+'/home/pbytes/.ansible/collections:/opt/ansible/collections'. The installed
+collection won't be picked up in an Ansible run.
 Process install dependency map
 Starting collection install process
-Downloading https://galaxy.ansible.com/download/ansible-netcommon-2.6.1.tar.gz to /home/pbytes/.ansible/tmp/ansible-local-478cvza3v7i/tmpxvfwt8xg/ansible-netcommon-2.6.1-pjxnuzhl
-Installing 'ansible.netcommon:2.6.1' to '/home/pbytes/.ansible/collections/ansible_collections/ansible/netcommon'
-Downloading https://galaxy.ansible.com/download/ansible-utils-2.6.1.tar.gz to /home/pbytes/.ansible/tmp/ansible-local-478cvza3v7i/tmpxvfwt8xg/ansible-utils-2.6.1-k85dhzjq
+Downloading https://galaxy.ansible.com/download/ansible-netcommon-2.6.1.tar.gz to /home/pbytes/.ansible/tmp/ansible-local-38033kku_abc/tmp1n81kclb/ansible-netcommon-2.6.1-zz9b60p6
+Installing 'ansible.netcommon:2.6.1' to '/home/pbytes/Projects/ansible/collections/ansible_collections/ansible/netcommon'
+Downloading https://galaxy.ansible.com/download/ansible-utils-2.6.1.tar.gz to /home/pbytes/.ansible/tmp/ansible-local-38033kku_abc/tmp1n81kclb/ansible-utils-2.6.1-wgeklro8
 ansible.netcommon:2.6.1 was installed successfully
-Installing 'ansible.utils:2.6.1' to '/home/pbytes/.ansible/collections/ansible_collections/ansible/utils'
-Downloading https://galaxy.ansible.com/download/ansible-posix-1.4.0.tar.gz to /home/pbytes/.ansible/tmp/ansible-local-478cvza3v7i/tmpxvfwt8xg/ansible-posix-1.4.0-0i7peh41
+Installing 'ansible.utils:2.6.1' to '/home/pbytes/Projects/ansible/collections/ansible_collections/ansible/utils'
+Downloading https://galaxy.ansible.com/download/ansible-posix-1.4.0.tar.gz to /home/pbytes/.ansible/tmp/ansible-local-38033kku_abc/tmp1n81kclb/ansible-posix-1.4.0-dxj412mk
 ansible.utils:2.6.1 was installed successfully
-Installing 'ansible.posix:1.4.0' to '/home/pbytes/.ansible/collections/ansible_collections/ansible/posix'
+Installing 'ansible.posix:1.4.0' to '/home/pbytes/Projects/ansible/collections/ansible_collections/ansible/posix'
+Downloading https://galaxy.ansible.com/download/community-general-5.4.0.tar.gz to /home/pbytes/.ansible/tmp/ansible-local-38033kku_abc/tmp1n81kclb/community-general-5.4.0-wmqxdqfe
 ansible.posix:1.4.0 was installed successfully
+Installing 'community.general:5.4.0' to '/home/pbytes/Projects/ansible/collections/ansible_collections/community/general'
+community.general:5.4.0 was installed successfully
 $
 ```
 
