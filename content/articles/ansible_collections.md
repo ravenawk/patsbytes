@@ -116,7 +116,10 @@ collections:
   version: 2.6.1
   source: https://galaxy.ansible.com
 ```
-Let's use this requirements file and install those collections.
+
+Let's use this requirements file and the -p option to install those collections. 
+We will install it in a collections folder in the directory we have our playbook. 
+As noted before, even though this isn't in our path, Ansible will still look there.
 
 ```bashsession
 $ ansible-galaxy collection install -r collections/requirements.yml -p ./collections
@@ -143,7 +146,10 @@ community.general:5.4.0 was installed successfully
 $
 ```
 
-Now let's look at what collections are on our system.
+Notice that it warns us this path is not in our current collection path; this isn't the case. 
+We will revisit this briefly, but let's look at what collections are on our system. 
+(Or at least what are in our defined paths)
+
 
 ```
 $ ansible-galaxy collection list
@@ -151,28 +157,52 @@ $ ansible-galaxy collection list
 # /home/pbytes/.ansible/collections/ansible_collections
 Collection        Version
 ----------------- -------
-ansible.netcommon 2.6.1
-ansible.posix     1.4.0
-ansible.utils     2.6.1
-community.general 5.4.0
+ansible.windows   1.11.0
 $
 ```
 
-The above shows all collections we have installed, and as expected, they are in the first path in COLLECTIONS_PATHS.
-You might also notice an extra collection listed, **ansible.utils**, there was a dependency for it by ansible.netcommon.
+Let's look at using collections and see if we can clear up the above warning and also how even though those collecitons are not currently in our path ansible does indeed sitllLet's look at using collections and see if we can clear up the above warning and how, even though those collections are not currently in our path Ansible still look for them there. look for them there.
 
 ### Using collections
-In writing plays and roles refer to a module or plugin from a collection by including the namespace.
-collection before the module or plugin name:
+Let's write a short playbook that does a dig against google.com.
+The playbook will use the dig lookup plugin in the community.general collection.
+Remember we installed this in the collections folder in our current directory, not in the _COLLECTIONS_PATHS_.
+
+```bashsession
+cat site.yml
+```
+
 
 ```yaml
 ---
-- hosts: all
-  connection: ansible.netcommon.netconf
+- hosts: localhost
+  connection: local
   tasks:
-    - name: use lookup filter to provide xml configuration
-      ansible.netcommon.netconf_config:
-        content: "{{ lookup('file', './config.xml') }}"
+    - name: Print out
+      ansible.builtin.debug:
+        msg: "{{ lookup('community.general.dig', 'google.com') }}"
+```
+
+Notice when refering to the lookup plugin we have to specify the fully qualified collection name(FQCN).
+
+Now let's run it.
+
+```bashsession
+ansible-playbook site.yml
+```
+```bash
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [Print out] ***************************************************************
+ok: [localhost] => {
+    "msg": "142.250.72.174"
+}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
 To avoid a lot of typing the collections keyword can be used in the play. By doing this the namespace.
