@@ -17,7 +17,7 @@ This variable is a list of paths that Ansible uses to locate installed collectio
 
 > **NOTE:** There is an additional location where ansible searches for collections. It will search for the collections folder in the directory in which a playbook runs.
 
-Let's look at a couple of ways to see this variable's value using the two command _ansible-config dump | grep COLLECTIONS_PATHS_ and _ansible --version_.
+Let's look at a couple of ways to see this variable's value using the two commands _ansible-config dump | grep COLLECTIONS_PATHS_ and _ansible --version_.
 
 ```bashsession {linenos=false,hl_lines=[2, 8]}
 $ ansible-config dump | grep COLLECTIONS_PATHS
@@ -60,7 +60,8 @@ COLLECTIONS_PATHS(/home/pbytes/Projects/ansible/ansible.cfg) = ['/home/pbytes/.a
 Notice _ansible-config dump_ shows which ansible.cfg is setting these new values, just like it showed it was using defaults before.
 
 
-Our path is configured, let's check if there are any collections on our system in those paths. We do this by using _ansible-galaxy collection list_.
+Our paths are configured, let's check if there are any collections in those paths. 
+We do this by using _ansible-galaxy collection list_.
 
 ```bashsession
 $ ansible-galaxy collection list
@@ -91,7 +92,9 @@ $
 ```
 
 Here we installed the _ansible.windows_ collection. 
-The ansible-galaxy command installs it to the first path listed in _COLLECTIONS_PATHS_, in our case `/home/pbytes/.ansible/collections/`
+The ansible-galaxy command installs it to the first path listed in _COLLECTIONS_PATHS_, in our case: 
+
+`/home/pbytes/.ansible/collections/`
 
 *Some options you can pass to the install command*  
 
@@ -117,9 +120,9 @@ collections:
   source: https://galaxy.ansible.com
 ```
 
-Let's use this requirements file and the -p option to install those collections. 
-We will install it in a collections folder in the directory we have our playbook. 
-As noted before, even though this isn't in our path, Ansible will still look there.
+Let's use this requirements file and the -p option to install those collections.
+We will install it in the directory we run our playbooks from in a collections folder.
+As noted before, even though this isn't in our _COLLECTIONS_PATHS_, Ansible will still look there.
 
 ```bashsession
 $ ansible-galaxy collection install -r collections/requirements.yml -p ./collections
@@ -146,9 +149,8 @@ community.general:5.4.0 was installed successfully
 $
 ```
 
-Notice that it warns us this path is not in our current collection path; this isn't the case. 
-We will revisit this briefly, but let's look at what collections are on our system. 
-(Or at least what are in our defined paths)
+Notice that it warns us this path is not in our current collection path.
+We will revisit this briefly, but let's look at what collections Ansible thinks are on our system.
 
 
 ```
@@ -161,15 +163,13 @@ ansible.windows   1.11.0
 $
 ```
 
-Let's look at using collections and see if we can clear up the above warning and also how even though those collecitons are not currently in our path ansible does indeed sitllLet's look at using collections and see if we can clear up the above warning and how, even though those collections are not currently in our path Ansible still look for them there. look for them there.
+Let’s look at using collections and see if we can clear up the above warning and how even though those collections are not currently in our path, Ansible still looks for them there.
 
 ### Using collections
-Let's write a short playbook that does a dig against google.com.
-The playbook will use the dig lookup plugin in the community.general collection.
-Remember we installed this in the collections folder in our current directory, not in the _COLLECTIONS_PATHS_.
+Here is a playbook that will use the dig lookup plugin in the community.general collection.
 
 ```bashsession
-cat site.yml
+cat dig_example.yml
 ```
 
 
@@ -183,7 +183,10 @@ cat site.yml
         msg: "{{ lookup('community.general.dig', 'google.com') }}"
 ```
 
-Notice when refering to the lookup plugin we have to specify the fully qualified collection name(FQCN).
+When referring to an item in a collection, we have to specify the fully qualified collection name (FQCN). 
+We use two collections in this playbook. 
+One is the community.general we installed from before. 
+The other comes included with Ansible ansible.builtin.
 
 Now let's run it.
 
@@ -203,6 +206,29 @@ ok: [localhost] => {
 
 PLAY RECAP *********************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+```
+
+So Ansible does indeed see the collections we have installed in that folder.
+To make it clears here is the current file structure of the folder we are in.
+
+```bashsession
+$ tree -L 3
+```
+
+```bashsession
+.
+|-- ansible.cfg
+|-- collections
+|   `-- ansible_collections
+|       |-- ansible
+|       |-- ansible.netcommon-2.6.1.info
+|       |-- ansible.posix-1.4.0.info
+|       |-- ansible.utils-2.6.1.info
+|       |-- community
+|       `-- community.general-5.4.0.info
+|-- dig_example.yml
+|-- inventory
+|-- requirements.yml
 ```
 
 To avoid a lot of typing the collections keyword can be used in the play. By doing this the namespace.
