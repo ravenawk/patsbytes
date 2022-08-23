@@ -8,7 +8,7 @@ cover:
   image: 'static/package_ansible.jpg'
 params:
   title: Pat's Bytes
-  description: "Welcome to my little bytes of learning"
+  description: "Welcome to my little bytes of sharing and hopefully learning"
   keywords:
     - Blog
     - PaperMod
@@ -22,7 +22,7 @@ params:
     linkFullImages: true
 
   ShowReadingTime: true
-  ShowShareButtons: true
+  ShowShareButtons: false
   ShowPostNavLinks: true
   ShowBreadCrumbs: true
   ShowCodeCopyButtons: true

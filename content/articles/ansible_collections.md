@@ -235,10 +235,12 @@ To do this, the collections keyword can be used in the play.
 The FQCN for plugins and lookups is still needed.
 Because different collections could possibly have modules named the same I recommend just getting used to typing the FQCN in you Ansible code.
 
-References
-On collections in general
-https://docs.ansible.com/ansible/latest/user_guide/collections_using.html
-For developing collections
-https://docs.ansible.com/ansible/latest/dev_guide/developing_collections.html
-Ansible config settings
-https://docs.ansible.com/ansible/latest/reference_appendices/config.html
+**References**  
+On collections in general  
+https://docs.ansible.com/ansible/latest/user_guide/collections_using.html  
+
+For developing collections  
+https://docs.ansible.com/ansible/latest/dev_guide/developing_collections.html  
+
+Ansible config settings  
+https://docs.ansible.com/ansible/latest/reference_appendices/config.html  
