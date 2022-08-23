@@ -208,8 +208,7 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-So Ansible does indeed see the collections we have installed in that folder.
-To make it clears here is the current file structure of the folder we are in.
+To clarify where we are, here is the current file structure of the folder where we ran the playbook.
 
 ```bashsession
 $ tree -L 3
@@ -231,24 +230,11 @@ $ tree -L 3
 |-- requirements.yml
 ```
 
-To avoid a lot of typing the collections keyword can be used in the play. By doing this the namespace.
-collection can then be removed from the front of the module name. The fully qualified collection
-name (FQCN) for plugins and lookups will still need to be used:
+It is possible to just type the name of the module without the FQCN. 
+To do this, the collections keyword can be used in the play. 
+The FQCN for plugins and lookups is still needed.
+Because different collections could possibly have modules named the same I recommend just getting used to typing the FQCN in you Ansible code.
 
-```yaml
----
-- hosts: all
-  connection: ansible.netcommon.netconf
-  collections:
-    - ansible.netcommon
-  tasks:
-  - name: use lookup filter to provide xml configuration
-    netconf_config:
-      content: "{{ lookup('file', './config.xml')}}"
-```
-
-When using the collections keyword be careful of clashing namespaces (namespaces that have the
-same base module name)
 References
 On collections in general
 https://docs.ansible.com/ansible/latest/user_guide/collections_using.html
