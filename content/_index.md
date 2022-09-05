@@ -1,5 +1,5 @@
 ---
 title: "Pat's Bytes"
-description: "Sharing small bytes of knowledge"
+description: "Father, geek, and would-be writer"
 featured_image: 'images/package_ansible.jpg'
 ---

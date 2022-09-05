@@ -8,7 +8,7 @@ cover:
   image: 'static/package_ansible.jpg'
 params:
   title: Pat's Bytes
-  description: "Welcome to my little bytes of sharing and hopefully learning"
+  description: "Father, geek, and would-be writer"
   keywords:
     - Blog
     - PaperMod
@@ -30,7 +30,7 @@ params:
   profileMode:
     enabled: true
     title: "Pat's Bytes" # optional default will be site title
-    subtitle: "Welcome to my blog"
+    subtitle: "Father, geek, and would-be writer"
     imageUrl: "images/package_ansible.jpg" # optional
     imageTitle: "Pat's Bytes" # optional
     imageWidth: 360 # custom size
