@@ -230,10 +230,9 @@ $ tree -L 3
 |-- requirements.yml
 ```
 
-It is possible to just type the name of the module without the FQCN. 
-To do this, the collections keyword can be used in the play. 
-The FQCN for plugins and lookups is still needed.
-Because different collections could possibly have modules named the same I recommend just getting used to typing the FQCN in you Ansible code.
+It is possible to type the module's name without the FQCN. 
+But, because different collections could have modules named the same, I recommend just getting used to typing the FQCN in your Ansible code. 
+The FQCN for plugins and lookups is still needed anyway.
 
 **References**  
 On collections in general  
