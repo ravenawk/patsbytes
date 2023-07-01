@@ -5,9 +5,13 @@ draft: false
 ---
 An execution environment in Ansible refers to a container image that includes all the necessary dependencies, modules, and plugins to execute Ansible automation. It ensures consistent and reproducible execution of playbooks and roles by providing an environment with set configurations. By creating custom execution environments using ansible-builder, you can create reproducible environments tailored for the work you need to do. Ansible-builder makes maintaining and managing complex infrastructures easier while ensuring consistent and predictable outcomes. Let's use ansible-builder to create an executable environment and test that environment is working as expected. 
 
-To build images, you need either Podman or Docker installed on the system where you install ansible-builder. To install ansible-builder, you can use pip.
+You must have either Podman or Docker installed on the system where you intend to install Ansible-builder. Once you have Podman or Docker installed, the next step is installing Ansible-builder. The recommended method for installation is using pip, the Python package manager. Pip properly installs dependencies and simplifies the installation process.
+
+The basic command to install Ansible-builder with pip is by run the following:
 
 `pip install anisible-builder`
+
+You will see some dependency packages installed in addition to ansible-builder. You can pass or use other options, such as using a Python virtual environment or installing it with the `--user` flag. Look at the documentation for pip to see what options are available.
 
 The main file that calls everything else is execution-environments.yml:
 
