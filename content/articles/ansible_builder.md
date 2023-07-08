@@ -13,42 +13,48 @@ The basic command to install Ansible-builder with pip is by run the following:
 
 You will see some dependency packages installed in addition to ansible-builder. You can pass or use other options, such as using a Python virtual environment or installing it with the `--user` flag. Look at the documentation for pip to see what options are available.
 
-The main file that calls everything else is execution-environments.yml:
+Let's build an execution environment that we can use to control a Proxmox server. Proxmox VE is an open-source server for managing virtual environments, similar to VMware vSphere. You can use various files when building your execution environment, but the main file is *execution-environment.yml*. 
 
-```
+```yaml {title="execution-environment.yml"}
 ---
 version: 3
 
 images:
   base_image:
-    name: registry.redhat.io/ansible-automation-platform-23/ee-minimal-rhel8:latest
-
-options:
-  package_manager_path: /usr/bin/microdnf
+    name: quay.io/ansible/awx-ee:latest
 
 dependencies:
   ansible_core:
     package_pip: ansible-core==2.14.0
   ansible_runner:
     package_pip: ansible-runner
-  galaxy: requirements.yml
+  galaxy: 
+    collections:
+      - community.general
+  python:
+    - proxmoxer
+    - requests
 
 additional_build_files:
     - src: ansible.cfg
       dest: configs
 
 additional_build_steps:
-  prepend_galaxy:
+  prepend_final:
     - ADD _build/configs/ansible.cfg /etc/ansible/ansible.cfg
 ```
+The above execution-environment.yml has all the ansible and python requirements inline. You can also specify them as separate files, such as requirements.yml (Ansible) and requirements.txt (python). Such as:
 
-From inside the execution environment, you can call specific collections using a requirements.yml file.
-
-```
----
-collections:
-  - name: ansible.controller
-  - name: infra.controller_configuration
+```yaml
+--snip--
+dependencies:
+  ansible_core:
+    package_pip: ansible-core==2.14.0
+  ansible_runner:
+    package_pip: ansible-runner
+  galaxy: requirements.yml
+  python: requirements.txt
+--snip--
 ```
 
 Once you have all of your files set run
