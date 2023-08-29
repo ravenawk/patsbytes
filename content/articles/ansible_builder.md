@@ -9,7 +9,7 @@ You must have either Podman or Docker installed on the system where you intend t
 
 The basic command to install Ansible-builder with pip is by running the following:
 
-`pip install anisible-builder`
+`pip install ansible-builder`
 
 You will see dependency packages installed in addition to ansible-builder. You can use other options with pip, such as using a Python virtual environment or installing it with the --user flag. Look at the documentation for pip to see what options are available.
 
