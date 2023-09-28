@@ -1,6 +1,6 @@
 ---
 title: "Ansible Collections - A Primer"
-date: 2022-06-05
+date: 2023-06-05
 draft: false
 ---
 

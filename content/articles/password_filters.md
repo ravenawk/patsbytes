@@ -1,6 +1,6 @@
 ---
 title: "Ansible: A Look at Password and Random String Lookups"
-date: 2023-09-06:18:58-07:00
+date: 2023-09-06
 draft: false
 ---
 Ansible has many built-in lookups and filters to simplify tasks. Today, we'll look at the password lookup and the random_string lookup. Both are useful when automating tasks involving generating random strings, like user passwords. Let's compare the two and see why we would want to use one over the other.
