@@ -114,3 +114,13 @@ When deciding between the password and random_string lookups in Ansible, it's im
 
 Both the password and random_string lookups in Ansible cater to different needs. By understanding the features and limitations of each, you can make a choice based on the requirements of your project.
 
+**References**  
+Ansible lookups:
+https://docs.ansible.com/ansible/latest/plugins/lookup.html
+
+Password lookup:
+https://docs.ansible.com/ansible/latest/collections/ansible/builtin/password_lookup.html
+
+Random String lookup:
+https://docs.ansible.com/ansible/latest/collections/community/general/random_string_lookup.html
+
