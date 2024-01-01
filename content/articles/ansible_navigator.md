@@ -1,6 +1,6 @@
 ---
 title: "Ansible-Navigator: Installation and Configuration"
-date: 2023-12-20:26:24-07:00
+date: 2023-12-28T13:26:24-07:00
 draft: false
 ---
 The shift from Ansible Tower to the Ansible Automation Platform (AAP) represents a significant evolution in development, notably through the adoption of containerized job execution. Amidst these changes is Ansible Navigator, a new utility that consolidates multiple Ansible tools into one. This first article is just an introduction to Ansible Navigator; additional articles that explain different parts and usage will follow.
