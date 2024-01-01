@@ -1,5 +1,5 @@
 ---
-title: "Ansible-Navigator: Running playbooks in Execution Environments"
+title: "Ansible-Navigator: Installation and Configuration"
 date: 2023-12-20:26:24-07:00
 draft: false
 ---
