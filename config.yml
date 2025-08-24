@@ -1,6 +1,7 @@
 baseURL: ""
 title: Pat's Bytes
-paginate: 5
+pagination:
+  pagerSize: 6
 theme: PaperMod
 defaultContentLanguage: en
 weight: 1
@@ -15,16 +16,17 @@ params:
     - Portfolio
   author: Pat Martin
   DateFormat: "January 1, 2006"
+
   defaultTheme: auto
   disableThemeToggle: false
-
-  cover:
-    linkFullImages: true
-
   ShowReadingTime: true
   ShowShareButtons: false
   ShowPostNavLinks: true
   ShowBreadCrumbs: true
+
+  cover:
+    linkFullImages: true
+
   ShowCodeCopyButtons: true
 
   profileMode:
@@ -60,9 +62,13 @@ menu:
       url: /archives/
       weight: 40
 
-# markup:
-#     highlight:
-#       codeFences: false
-#       pygmentsCodeFences: false
-#       guessSyntax: true
+markup:
+    highlight:
+      noClasses: false
+      codeFences: false
+      pygmentsCodeFences: false
+      guessSyntax: true
+    goldmark:
+      renderer:
+        unsafe: true
 ...
